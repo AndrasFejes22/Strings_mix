@@ -35,13 +35,10 @@ public class CompareLists {
         for (Character character: charSet1){
             if(letterInAWord(s1, character) >1 || letterInAWord(s2, character) >1) {
                 if (letterInAWord(s1, character) > letterInAWord(s2, character)) {
-                    //result.add(stringBuilder.append("1:").append(String.valueOf(character).repeat(letterInAWord(s1, character))).toString());
                     result.add("1:".concat(String.valueOf(character).repeat(letterInAWord(s1, character))));
                 } else if (letterInAWord(s1, character) < letterInAWord(s2, character)) {
-                    //result.add(stringBuilder.append("2:").append(String.valueOf(character).repeat(letterInAWord(s2, character))).toString());
                     result.add("2:".concat(String.valueOf(character).repeat(letterInAWord(s2, character))));
                 } else if (letterInAWord(s1, character) == letterInAWord(s2, character)) {
-                    //result.add(stringBuilder.append("=:").append(String.valueOf(character).repeat(letterInAWord(s1, character))).toString());
                     result.add("=:".concat(String.valueOf(character).repeat(letterInAWord(s1, character))));
                 }
             }
@@ -56,17 +53,10 @@ public class CompareLists {
     }
 
     public static Set<Character> convertArrayToSet(char[] array) {
-
-        // Create an empty Set
         Set<Character> set = new HashSet<>();
-
-        // Iterate through the array
         for (char t : array) {
-            // Add each element into the set
             set.add(t);
         }
-
-        // Return the converted Set
         return set;
     }
 
