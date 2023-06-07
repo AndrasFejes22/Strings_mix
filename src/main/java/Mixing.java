@@ -5,70 +5,51 @@ public class Mixing {
 
     public static String mix(String s1, String s2) {
 
-        StringBuilder sb = new StringBuilder();
+        List<String> result = new ArrayList<>();
 
-        String string1 = letterStatistics(s1, "1");
-        String string2 = letterStatistics(s2, "2");
-
-        String[] st1 = string1.split("/");
-        String[] st2 = string2.split("/");
-        System.out.println("st1: "+ Arrays.toString(st1));
-        System.out.println("st2: "+ Arrays.toString(st2));
+        s1 =leftOnlyLetters(s1);
+        s2 =leftOnlyLetters(s2);
 
 
+        char[] charS1 = s1.toCharArray();
+        char[] charS2 = s2.toCharArray();
 
-        String result = resultString(st1, st2);
+        Arrays.sort(charS1);
+        Arrays.sort(charS2);
 
-        //return sb.append(string1).append(string2).toString();
-        return result;
-    }
 
-    public static String letterStatistics(String word, String n){
+        System.out.println(charS1);
+        Set<Character> charSet1 = convertArrayToSet(charS1);
+        Set<Character> charSet2 = convertArrayToSet(charS2);
 
-        word = leftOnlyLetters(word);
-        List<Character> lettersInAWord = new ArrayList<>();
+        charSet1.addAll(charSet2);
 
-        int totalNumberOfLetters = 0;
-        Map<Character, Integer> letterStatistics = new TreeMap<>();
-        char[] lettersOfWord = word.toCharArray();
-        for (char letter : lettersOfWord) {//char array
-            totalNumberOfLetters++;
-            if(letterStatistics.containsKey(letter)) {
-                Integer count = letterStatistics.get(letter);
-                count++;
-                letterStatistics.put(letter, count);
-            } else {
-                letterStatistics.put(letter, 1);
-            }
 
-        }
+        //System.out.println(charS1);
+        System.out.println(charSet1);
 
-        System.out.println("totalNumberOfLetters: " + totalNumberOfLetters);
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        Set<Map.Entry<Character, Integer>> entrySet = letterStatistics.entrySet();
-        for (Map.Entry<Character, Integer> entry : entrySet) {
-            System.out.println(entry.getKey() + " --> " + entry.getValue() + " db");
-            if(entry.getValue() > 1) {
-                stringBuilder.append(n).append(":").append(String.valueOf(entry.getKey()).repeat(entry.getValue())).append("/");
+        for (Character character: charSet1){
+            if(letterInAWord(s1, character) >1 || letterInAWord(s2, character) >1) {
+                if (letterInAWord(s1, character) > letterInAWord(s2, character)) {
+                    result.add("1:".concat(String.valueOf(character).repeat(letterInAWord(s1, character))));
+                } else if (letterInAWord(s1, character) < letterInAWord(s2, character)) {
+                    result.add("2:".concat(String.valueOf(character).repeat(letterInAWord(s2, character))));
+                } else if (letterInAWord(s1, character) == letterInAWord(s2, character)) {
+                    result.add("=:".concat(String.valueOf(character).repeat(letterInAWord(s1, character))));
+                }
             }
         }
 
-        List<Map.Entry<Character, Integer>> collect = letterStatistics.entrySet().stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(Collectors.toList());
+        //System.out.println("SB: "+stringBuilder);
+        result.sort(myComparator);
+        System.out.println("result: "+result);
+        String joined = String.join("/", result);
+        System.out.println("joined: "+joined);
 
-        letterStatistics.forEach((key, value) -> System.out.println("letter: "+ key + ", quantity: " + value));
-
-        for(int i = 0; i < collect.size(); i++){
-            lettersInAWord.add(collect.get(i).getKey());
-        }
-
-        System.out.println("lettersList: " + lettersInAWord);
-        System.out.println("builder"+ n + ": " + stringBuilder);
-
-        return stringBuilder.toString();
+        return joined;
     }
+
+
 
     public static int letterInAWord(String word, Character n){
         int num = 0;
@@ -113,6 +94,7 @@ public class Mixing {
                 StringBuilder::append).toString();
     }
 
+    /*
     public static String resultString(String[] s1, String[] s2) {
 
         List<String> listS1 = new ArrayList<String>(List.of(s1));
@@ -154,7 +136,7 @@ public class Mixing {
                     sb.append(s2[j]);
                     resultSet.add(s1[i]);
                     resultSet.add(s2[j]);
-                }*/
+                }
 
 
             }
@@ -164,6 +146,7 @@ public class Mixing {
 
         return sb.toString();
     }
+    */
 
     public static boolean hasSameCharacter(String s1, String s2) {
         for (int i = 0; i < s1.length(); i++) {
@@ -175,4 +158,19 @@ public class Mixing {
         }
         return false;
     }
+
+    public static Set<Character> convertArrayToSet(char[] array) {
+        Set<Character> set = new HashSet<>();
+        for (char t : array) {
+            set.add(t);
+        }
+        return set;
+    }
+
+    public static Comparator<String> myComparator = (String o1, String o2) -> {
+        if(o1.length() == o2.length()) {
+            return o1.compareTo(o2);
+        }
+        return Integer.compare(o2.length(),o1.length());
+    };
 }
