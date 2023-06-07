@@ -8,8 +8,8 @@ public class CompareLists {
         //StringBuilder stringBuilder = new StringBuilder();
         List<String> result = new ArrayList<>();
 
-        String s1 = "Are they here";
-        String s2 = "yes, they are here";
+        String s1 = "looping is fun but dangerous";
+        String s2 = "less dangerous than coding";
 
         s1 =leftOnlyLetters(s1);
         s2 =leftOnlyLetters(s2);
@@ -48,7 +48,7 @@ public class CompareLists {
         }
 
         //System.out.println("SB: "+stringBuilder);
-        Collections.sort(result);
+        result.sort(myComparator);
         System.out.println("result: "+result);
         String joined = String.join("/", result);
         System.out.println("joined: "+joined);
@@ -106,4 +106,11 @@ public class CompareLists {
         }
         return num;
     }
+
+    public static Comparator<String> myComparator = (String o1, String o2) -> {
+        if(o1.length() == o2.length()) {
+            return o1.compareTo(o2);
+        }
+        return Integer.compare(o2.length(),o1.length());
+    };
 }
