@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class MixingTest {
 
     @Test
-    void letterStatistics() {
-    }
-
-    @Test
     void checkIfLoverCaseTest() {
         assertTrue(Mixing.checkIfLoverCase('a'));
         assertFalse(Mixing.checkIfLoverCase('A'));

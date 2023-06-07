@@ -78,7 +78,6 @@ public class Mixing {
             }
         }
 
-
         return num;
     }
 
@@ -94,59 +93,6 @@ public class Mixing {
                 StringBuilder::append).toString();
     }
 
-    /*
-    public static String resultString(String[] s1, String[] s2) {
-
-        List<String> listS1 = new ArrayList<String>(List.of(s1));
-        List<String> listS2 = new ArrayList<String>(List.of(s1));
-
-        Set<String> resultSet = new TreeSet<>();
-        Iterator<String> S1iterator = listS1.iterator();
-        Iterator<String> S2iterator = listS2.iterator();
-        Iterator<String> iterator = resultSet.iterator();
-        StringBuilder sb = new StringBuilder();
-        System.out.println("math max: "+Math.max(s1.length, s2.length));
-        for (int i = 0; i < Math.max(s1.length, s2.length); i++) {
-            System.out.println("s1i: "+i +": "+s1[i]);
-            for (int j = 0; j < Math.min(s1.length, s2.length); j++) {
-                System.out.println("s2j: "+j +": "+s2[j]);
-                if(hasSameCharacter(s1[i], s2[j])) {
-                    if (s1[i].length() > s2[j].length()) {
-                        resultSet.add(s1[i]);
-                        resultSet.remove(s2[j]); //nem jó még benne sincs
-                        sb.append(s1[i]);
-                        System.out.println("set1: "+resultSet);
-                        //break;
-                    } else if (s1[i].length() < s2[j].length()){
-                        sb.append(s2[j]);
-                        resultSet.add(s2[j]);
-                        resultSet.remove(s1[i]);
-                        System.out.println("set2: "+resultSet);
-                        //break;
-                    } else if(s1[i].length() == s2[j].length()){
-                        sb.append(s1[i]);
-                        //resultSet.add(s1[i]);
-                        resultSet.add(s2[j]);
-                        System.out.println("set3: "+resultSet);
-                        //break;
-                    }
-                    //break;
-                } /*else {
-                    sb.append(s1[i]);
-                    sb.append(s2[j]);
-                    resultSet.add(s1[i]);
-                    resultSet.add(s2[j]);
-                }
-
-
-            }
-
-        }
-        System.out.println("set: "+resultSet);
-
-        return sb.toString();
-    }
-    */
 
     public static boolean hasSameCharacter(String s1, String s2) {
         for (int i = 0; i < s1.length(); i++) {
